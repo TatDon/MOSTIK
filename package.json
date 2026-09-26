@@ -8,9 +8,10 @@
     "start": "node server.mjs",
     "build": "echo no-build-needed"
   },
-  "dependencies": {
+    "dependencies": {
     "@electric-sql/pglite": "0.5.8",
-    "@netlify/database": "^2.0.1"
+    "@netlify/database": "^2.0.1",
+    "postgres": "^3.4.9"
   },
   "engines": {
     "node": ">=20"
