@@ -9,7 +9,8 @@
     "build": "echo no-build-needed"
   },
   "dependencies": {
-    "@electric-sql/pglite": "0.5.8"
+    "@electric-sql/pglite": "0.5.8",
+    "@netlify/database": "^2.0.1"
   },
   "engines": {
     "node": ">=20"
