@@ -5,7 +5,8 @@
   "description": "MOSTIK local (embedded DB, no Docker)",
   "type": "module",
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "build": "echo no-build-needed"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.8"
