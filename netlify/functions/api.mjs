@@ -293,6 +293,10 @@ async function ensureSchema(){
 }
 
 export default async (req) => {
+  // Declared here (not inside the try block below) so the catch handler can still
+  // read them for error telemetry/logging — try/catch blocks don't share scope.
+  let p = '';
+  let me = null;
   try {
   try {
     await ensureSchema();
@@ -303,7 +307,7 @@ export default async (req) => {
       detail: String(schemaErr?.message||schemaErr)
     }, 503);
   }
-  const u=new URL(req.url), p=u.pathname.replace(/^\/api\/?/,'');
+  const u=new URL(req.url); p=u.pathname.replace(/^\/api\/?/,'');
   if(p==='health'){const c=await db.sql`SELECT count(*)::int users, count(*) FILTER (WHERE role='admin')::int admins FROM users`; return json({ok:true,app:'MOSTIK',version:'5.3.24',users:c[0].users,admins:c[0].admins});}
   if(p==='auth/status' && req.method==='GET'){const c=await db.sql`SELECT count(*)::int users, count(*) FILTER (WHERE role='admin')::int admins FROM users`; return json({setup_required:c[0].admins===0,users:c[0].users,admins:c[0].admins});}
   if(p==='auth/register' && req.method==='POST'){
@@ -420,7 +424,7 @@ export default async (req) => {
     };
     await recordErrorEvent(payload,null,ip); return json({ok:true},201);
   }
-  const me=await user(req); if(!me)return json({error:'Требуется вход'},401);
+  me=await user(req); if(!me)return json({error:'Требуется вход'},401);
   if(p==='me')return json({user:me,real_role:me.role,active_role:me.active_role||me.effective_role,roles:me.roles||[me.role]});
   if(p==='role' && req.method==='PUT'){
     const b=await parse(req), role=String(b.role||'').trim();
