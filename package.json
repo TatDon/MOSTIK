@@ -9,7 +9,8 @@
     "build": "echo no-build-needed"
   },
   "dependencies": {
-    "@electric-sql/pglite": "0.5.8"
+    "@electric-sql/pglite": "0.5.8",
+    "postgres": "^3.4.9"
   },
   "engines": {
     "node": ">=20"
