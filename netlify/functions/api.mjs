@@ -295,6 +295,7 @@ async function ensureSchema(){
 export default async (req) => {
   let p, me;
   try {
+  try {
     await ensureSchema();
   } catch (schemaErr) {
     console.error('schema bootstrap failed', schemaErr);
